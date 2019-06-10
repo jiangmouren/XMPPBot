@@ -78,7 +78,15 @@ class EchoBot(sleekxmpp.ClientXMPP):
                    how it may be used.
         """
         if msg['type'] in ('chat', 'normal'):
-            msg.reply("Thanks for sending\n%(body)s" % msg).send()
+            # msg.reply("Thanks for sending\n%(body)s" % msg)
+            fromjid = msg['from']
+            fromjidstr = fromjid.bare
+            if 'jiangmouren@homedesktop' == fromjidstr:
+                msg.set_to('rachel@homedesktop/HomeDeskTop')
+            if 'rachel@homedesktop' == fromjidstr:
+                msg.set_to('jiangmouren@homedesktop/HomeDeskTop')
+            del msg['from']
+            msg.send()
 
 
 if __name__ == '__main__':
